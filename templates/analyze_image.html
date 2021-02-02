@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Image Analysis {% endblock %}</h1>
+    <hr>
+
+    
+    <form method='post' enctype="multipart/form-data">
+		<label for="imageSelection">Select an image</label>
+		<input type="file" name="imageSelection">
+		<input type="submit" value="Upload">
+		
+	</form>
+
+	{% if image_ready == True %}
+	<img src="{{ url_for('analyzeImage') }}">
+	{% endif %}
+    
+{% endblock %}

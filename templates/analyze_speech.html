@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Speech Analysis {% endblock %}</h1>
+	<hr>
+
+	<div>
+		<h3>Speech To Text :</h3>
+		<p>{{ stt }}</p>
+
+		{% if sentiment == 'Positive' %}
+		<div>
+			<h6 style="float: right; margin: 5px;"> | Sentiment</h6>
+			<h4 style="float: right; color: green">{{sentiment}}</h4>
+		</div>
+		{% elif sentiment == 'Negative' %}
+		<div>
+			<h6 style="float: right; margin: 5px;"> | Sentiment</h6>
+			<h4 style="float: right; color: red">{{sentiment}}</h4>
+		</div>
+		{% endif %}
+
+		<hr>
+	</div>
+    
+{% endblock %}

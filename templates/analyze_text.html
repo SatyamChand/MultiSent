@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Analyze  {% endblock %}</h1>
+    <hr>
+
+    <form method="post">
+		
+		<div class="form-group">
+			<textarea type="Text" name="inputText" placeholder="Enter the text here" class="form-control" style="height: 300px" >{{inputText}}</textarea>
+		</div>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">Analyze</button>	
+		</div>
+
+	</form>
+	{% if sentiment == 'Positive' %}
+	<div>
+		<h6 style="float: right; margin: 5px;"> | Sentiment</h6>
+		<h4 style="float: right; color: green">{{sentiment}}</h4>
+	</div>
+	{% elif sentiment == 'Negative' %}
+	<div>
+		<h4 style="float: right; color: red">{{sentiment}}</h4>
+	</div>
+	{% endif %}
+	<hr>
+
+
+
+	<h5 style="color: #444">Or</h5>
+
+	<form method='post' enctype="multipart/form-data">
+		<input type="file" name="textFile">
+		<p style="color: #666; font-size: 12; margin-bottom: 0px">And</p>
+		<input type="submit" value="Analyze this instead" class="btn btn-primary">
+		
+	</form>
+
+	<p style="color: #666">Currently supported : txt</p>
+
+	{% if file_mode == True %}
+	<p style="color: #666">Last file analyzed : {{ filename }}</p>
+	{% endif %}
+    
+    
+{% endblock %}

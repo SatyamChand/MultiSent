@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Welcome to MultiSent {% endblock %}</h1>
+    <hr>
+
+    <ul>
+    	<li><a href="{{ url_for('analyze_twitter') }}">  Twitter  </a></li>
+    	<li><a href="{{ url_for('analyze_text') }}">  Text  </a></li>
+    	<li><a href="{{ url_for('analyze_speech') }}">  Speech  </a></li>
+    	<li><a href="{{ url_for('analyze_image') }}">  Image  </a></li>
+    	<li><a href="{{ url_for('analyze_video') }}">  Video  </a></li>
+    </ul>
+    
+    
+{% endblock %}

@@ -2,9 +2,9 @@ from flask import Flask, Response, url_for, request, redirect, render_template, 
 import os
 from werkzeug.utils import secure_filename
 
-
 # User defined imports
-import text_speech_recognition as tspy
+import text_speech_sentiment as tspy
+import image_video_sentiment as ivpy
 
 
 UPLOAD_FOLDER = "/root/Files/Projects/MultiSent/Uploads"
@@ -69,10 +69,28 @@ def analyze_speech():
 
 #------------------------------------- Image and Video --------------------------------------
 
-@app.route('/image')
+@app.route('/image', methods=['GET','POST'])
 def analyze_image():
-	return render_template('analyze_image.html')
+	if request.method == 'POST':
+		if 'imageSelection' not in request.files:
+			flash("No file part","danger")
+			return redirect(request.url)
+		imageFile = request.files['imageSelection']
+		if imageFile == '' :
+			flash("No file selected","danger")
+			return redirect(request.url)
+		if imageFile:
+			global filename
+			filename = secure_filename(imageFile.filename)
+			imageFile.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+			return render_template('analyze_image.html', image_ready=True)
+	return render_template('analyze_image.html', image_ready=False)
 
+@app.route('/image/analysis')
+def imageSentiment():
+	global filename
+	imageFrame = ivpy.find_image_sentiment(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+	return Response((b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(imageFrame) + b'\r\n'), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 @app.route('/video')

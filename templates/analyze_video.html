@@ -4,7 +4,20 @@
     <h1>{% block title %} Analyze  {% endblock %}</h1>
     <hr>
 
+    <form method='post' enctype="multipart/form-data">
+		<label for="videoSelection">Select a video</label>
+		<p>Currently supported : .mkv</p>
+		<input type="file" name="videoSelection">
+		<input type="submit" value="Upload">
+	</form>
+
+	{% if video_ready == True %}
+	<img src="{{ url_for('videoSentiment') }}">
+	{% endif %}
+
+    <a href="{{ url_for('video_stream') }}">Use WebCam Instead</a>
     
-    
+
+
     
 {% endblock %}

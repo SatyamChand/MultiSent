@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+    	<img src="{{ url_for('video_feed') }}">
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type=text/javascript>
+	        $(function() {
+	          $('a#test').on('click', function(e) {
+	            e.preventDefault()
+	            $.getJSON('/end_stream',
+	                function(data) {
+	              //do nothing
+	            });
+	            return false;
+	          });
+	        });
+	</script>
+
+
+	<div class='container'>
+	        <form>
+	            <a href=# id=test><button class='btn btn-primary'>Stop stream</button></a>
+	        </form>
+
+	</div>
+
+
+{% endblock %}

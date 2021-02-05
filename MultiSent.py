@@ -5,7 +5,9 @@ from werkzeug.utils import secure_filename
 # User defined imports
 import text_speech_sentiment as tspy
 import image_video_sentiment as ivpy
-
+from image_video_sentiment import StreamSentiment
+#from videocv2 import VideoCamera
+import videocv2
 
 UPLOAD_FOLDER = "/root/Files/Projects/MultiSent/Uploads"
 
@@ -14,6 +16,10 @@ UPLOAD_FOLDER = "/root/Files/Projects/MultiSent/Uploads"
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '12345'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+cont_stream=True
+
 
 
 @app.route('/')
@@ -93,11 +99,56 @@ def imageSentiment():
 	return Response((b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(imageFrame) + b'\r\n'), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-@app.route('/video')
+
+@app.route('/video', methods=['GET','POST'])
 def analyze_video():
-	return render_template('analyze_video.html')
+	if request.method == 'POST':
+		if 'videoSelection' not in request.files:
+			flash("No file part","danger")
+			return redirect(request.url)
+		videoFile = request.files['videoSelection']
+		if videoFile == '' :
+			flash("No file selected","danger")
+			return redirect(request.url)
+		if videoFile:
+			global filename
+			filename = secure_filename(videoFile.filename)
+			videoFile.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+			return render_template('analyze_video.html', video_ready=True)
+	return render_template('analyze_video.html', video_ready=False)
+
+@app.route('/video/vanalysis')
+def videoSentiment():
+	global filename
+	#videoFrame = ivpy.find_video_sentiment(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+	return Response(ivpy.find_video_sentiment(os.path.join(app.config['UPLOAD_FOLDER'], filename)), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
+
+@app.route('/video_stream')
+def video_stream():
+	return render_template('stream.html')
+
+@app.route('/end_stream')
+def endstream():
+	global cont_stream
+	print('-------------------------ended')
+	ivpy.stop()
+	cont_stream=False
+	return "none"
+
+@app.route('/video_stream/video_feed')
+def video_feed():
+	#print(dir(StreamSentiment))
+	#return Response(videocv2.get_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+	return Response(gen(StreamSentiment()), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+def gen(webcam):
+	global cont_stream
+	while cont_stream:
+		frame = webcam.get_frame()
+		yield frame
+	cont_stream=True
 
 #------------------------------------- Twitter---------------------------------------------
 

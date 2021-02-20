@@ -4,6 +4,15 @@
     <h1>{% block title %} Speech Analysis {% endblock %}</h1>
 	<hr>
 
+	<form method='post' enctype="multipart/form-data">
+		<label for="audioSelection">Select an audio file</label>
+		<input type="file" name="audioSelection">
+		<input type="submit" value="Upload">
+	</form>
+
+	<br>
+
+	{% if speech_ready == True %}
 	<div>
 		<h3>Speech To Text :</h3>
 		<p>{{ stt }}</p>
@@ -22,5 +31,6 @@
 
 		<hr>
 	</div>
+	{% endif %}
     
 {% endblock %}

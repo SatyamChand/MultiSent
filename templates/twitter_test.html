@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Analyze  {% endblock %}</h1>
+    <h1>{% block title %} Twitter mentions test  {% endblock %}</h1>
     <hr>
+
+    {% if no_new_tweet == True %}
+    <div style="margin: 20px 0px; padding: 20px 0px; border-width: 10px 0px; border-radius: 10px; background-color: #eee; text-align: center;">
+        <h1>No new status/mention to Analyze :( </h1>
+    </div>
+    {% endif %}
+
 
     {% for tweet in tweets %}
     {% set color = 'green' if tweet['sentiment'] == 'Positive' else 'red' %}
@@ -18,6 +25,6 @@
     	</div>
     </div>
 	{% endfor %}
-    
+
     
 {% endblock %}

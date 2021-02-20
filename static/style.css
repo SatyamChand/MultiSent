@@ -1,3 +1,36 @@
-body{
-	color: black;
+.index_menu_item_container{
+	background-color: #eaeaea;
+	box-shadow: 0px 0px 7px #aaa;
+	font-size: 20px;
+	font-style: italic;
+	width: 100%;
+	height : 80px;
+	margin: 20px;
+	border-radius: 10px;
+}
+.index_menu_item_container:hover{
+	background-color: #eee;
+	box-shadow: 5px 5px 5px #aaa;
+}
+
+.index_menu_item_link{
+	width: 80%;
+	height : 100%;
+	padding: 22px 50px;
+}
+
+.head_logo{
+	font-family: Algertian sans;
+	font-style: bold;
+	font-size: 20px;
+}
+
+.mytd{
+	padding: 0px 10px;
+}
+
+.block_container{
+	padding: 10px 10px 10px 30px;
+	background-color: #eaeaea;
+	box-shadow: 0px 0px 7px #aaa;
 }

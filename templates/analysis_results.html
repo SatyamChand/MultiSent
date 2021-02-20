@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Analysis results  {% endblock %}</h1>
+    <hr>
+    <br>
+
+    <div class="block_container">
+    <p><h2>Global Semtiment</h2>{{ global_sent_string }}</p>
+    </div>
+	<br>
+	<div class="block_container">
+    <p><h2>Media Semtiment</h2>{{ media_sent_string }}</p>
+    </div>
+
+    <hr>
+    <br>
+
+    {% if global_dict %}
+    <div class="block_container" style="width: 45%; float: left;">
+    <h2>Global Counter</h2> <br>
+    <table>
+    {% for key,value in global_dict.items() %}
+    	<tr>
+    		<td class="mytd"><p> {{ key }} </p></td>
+    		<td class="mytd"><p> :  {{ value }} </p></td>
+    	</tr>
+    {% endfor %}
+    </table>
+    </div>
+    {% endif %}
+
+    {% if media_dict %}
+    <div class="block_container" style="width: 45%; float: right;">
+    <h2>Media Counter : </h2> <br>
+    <table>
+    {% for key,value in media_dict.items() %}
+    	<tr>
+    		<td class="mytd"><p> {{ key }} </p></td>
+    		<td class="mytd"><p> :  {{ value }} </p></td>
+    	</tr>
+    {% endfor %}
+    </table>
+    </div>
+    {% endif %}
+    
+{% endblock %}

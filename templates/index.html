@@ -2,8 +2,9 @@
 
 {% block content %}
     <h1>{% block title %} Welcome to MultiSent {% endblock %}</h1>
-    <hr>
+    <hr><br>
 
+<!--
     <ul>
     	<li><a href="{{ url_for('analyze_twitter') }}">  Twitter  </a></li>
     	<li><a href="{{ url_for('analyze_text') }}">  Text  </a></li>
@@ -11,6 +12,12 @@
     	<li><a href="{{ url_for('analyze_image') }}">  Image  </a></li>
     	<li><a href="{{ url_for('analyze_video') }}">  Video  </a></li>
     </ul>
-    
+-->
+
+	<div class="index_menu_item_container" ><a href="{{ url_for('analyze_twitter') }}"><div class="index_menu_item_link" >		Twitter 	</div></a></div>
+	<div class="index_menu_item_container" ><a href="{{ url_for('analyze_text') }}">   <div class="index_menu_item_link" >		Text 		</div></a></div>
+	<div class="index_menu_item_container" ><a href="{{ url_for('analyze_speech') }}"> <div class="index_menu_item_link" >		Speech 		</div></a></div>
+	<div class="index_menu_item_container" ><a href="{{ url_for('analyze_image') }}">  <div class="index_menu_item_link" >		Image 		</div></a></div>
+	<div class="index_menu_item_container" ><a href="{{ url_for('analyze_video') }}">  <div class="index_menu_item_link" >		Video 		</div></a></div>
     
 {% endblock %}

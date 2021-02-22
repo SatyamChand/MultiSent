@@ -15,4 +15,4 @@ A Flask app with multiple sentient analysis functions
 
 Youtube:  https://youtu.be/z6IQEhlZk0s
 
-LinkedIn: linkedin.com/in/satyamchand/
+LinkedIn: https://www.linkedin.com/in/satyamchand/
